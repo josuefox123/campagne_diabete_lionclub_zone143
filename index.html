@@ -80,11 +80,24 @@ body {
 header {
   background: var(--navy-deep);
   border-bottom: 2px solid var(--gold);
-  padding: calc(24px + var(--safe-t)) 0 30px;
+  padding: 0 0 24px;
   color: #fff;
+}
+.header-banner-wrap {
+  width: 100%;
+  background: #082b68;
+  border-bottom: 2px solid var(--gold);
+}
+.header-banner-img {
+  width: 100%;
+  max-width: 1160px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 header .wrap {
   position: relative;
+  padding-top: 16px;
 }
 .header-top {
   display: flex;
@@ -518,6 +531,21 @@ button:disabled {
   color: var(--ink);
 }
 
+/* Bande tricolore avant le pied de page (vert, jaune, rouge de même mesure) */
+.tricolor-bar {
+  display: flex;
+  width: 100%;
+  height: 6px;
+  line-height: 0;
+}
+.tricolor-bar span {
+  flex: 1 1 33.333%;
+  height: 100%;
+}
+.tri-green { background: #008751; }
+.tri-yellow { background: #fcd116; }
+.tri-red { background: #e8112d; }
+
 /* Pied de page */
 footer {
   background: #071a33;
@@ -840,21 +868,12 @@ footer {
 </div>
 
 <header>
+  <div class="header-banner-wrap">
+    <img src="assets/banner-zone143.jpg" alt="Lions International District 403-A4 Région 14 Zone 143" class="header-banner-img">
+  </div>
   <div class="wrap">
-    <div class="header-top">
-      <div class="logos-trio">
-        <img src="assets/logo-lions.jpg" alt="Logo Lions Clubs International" class="brand-logo logo-lions" title="Lions Clubs International">
-        <img src="assets/logo-diabete.png" alt="Logo Cause Mondiale du Diabète" class="brand-logo logo-diabete" title="Cause Mondiale du Diabète">
-        <img src="assets/logo-leo.png" alt="Logo Leo Club" class="brand-logo logo-leo" title="Leo Club International">
-      </div>
-      <div class="lions-badge">
-        <span class="dot"></span>
-        Lions International · District 403-A4 · Région 14 · Zone 143
-      </div>
-    </div>
     <h1>Je bouge contre le diabète</h1>
     <p>Affiche ton engagement pour la Journée Mondiale du Diabète le samedi 14 novembre 2026. Génère ton cadre officiel et partage-le sur tes réseaux.</p>
-    <div class="header-divider"></div>
   </div>
 </header>
 
@@ -965,6 +984,13 @@ footer {
     </div>
   </section>
 </main>
+
+<!-- BANDE TRICOLORE (VERT, JAUNE, ROUGE DE MÊME MESURE) -->
+<div class="tricolor-bar" aria-hidden="true">
+  <span class="tri-green"></span>
+  <span class="tri-yellow"></span>
+  <span class="tri-red"></span>
+</div>
 
 <footer>
   <div class="wrap">

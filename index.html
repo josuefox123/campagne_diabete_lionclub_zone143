@@ -1113,122 +1113,183 @@ footer {
     ctx.restore();
   }
 
-  function drawBadge(imageEl, cx, cy, radius){
-    ctx.save();
-    ctx.shadowColor = 'rgba(0,0,0,0.3)';
-    ctx.shadowBlur = 8;
-    ctx.shadowOffsetY = 2;
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffffff';
-    ctx.fill();
-    ctx.restore();
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius - 1.5, 0, Math.PI * 2);
-    ctx.clip();
-    if (imageEl && imageEl.complete && imageEl.naturalWidth > 0){
-      ctx.drawImage(imageEl, cx - (radius - 1.5), cy - (radius - 1.5), (radius - 1.5) * 2, (radius - 1.5) * 2);
-    }
-    ctx.restore();
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#c5a04b';
-    ctx.stroke();
-    ctx.restore();
-  }
-
   function rrect(x,y,w,h,r){
     ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r);
     ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
   }
 
-  function draw(){
-    ctx.clearRect(0,0,S,S);
+  /* ---------- Helpers visuels ---------- */
+  function goldGrad(){
+    var g = ctx.createLinearGradient(0, 0, S, S);
+    g.addColorStop(0,   '#8a6a22');
+    g.addColorStop(0.25,'#e0c77f');
+    g.addColorStop(0.5, '#c5a04b');
+    g.addColorStop(0.75,'#f3e2a6');
+    g.addColorStop(1,   '#9c7a2c');
+    return g;
+  }
 
-    // Fond bleu marine uni institutionnel
-    ctx.fillStyle = '#071a33';
-    ctx.fillRect(0,0,S,S);
+  function diamond(cx, cy, r){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(Math.PI/4);
+    ctx.fillStyle = goldGrad();
+    ctx.fillRect(-r, -r, r*2, r*2);
+    ctx.restore();
+  }
 
-    // Anneau bleu profond
+  function diamondOnRing(angle, radius, r){
+    diamond(C + radius*Math.cos(angle), C + radius*Math.sin(angle), r);
+  }
+
+  function drawBadge(imageEl, cx, cy, radius){
+    // halo marine + ombre
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.35)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 3;
     ctx.beginPath();
-    ctx.arc(C, C, R_OUT, 0, Math.PI*2);
-    ctx.fillStyle = '#102d50';
+    ctx.arc(cx, cy, radius + 6, 0, Math.PI*2);
+    ctx.fillStyle = '#071a33';
+    ctx.fill();
+    ctx.restore();
+
+    // anneau or
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius + 4, 0, Math.PI*2);
+    ctx.fillStyle = goldGrad();
     ctx.fill();
 
-    // Liseré doré fin extérieur
-    ctx.lineWidth = 3.5;
-    ctx.strokeStyle = '#c5a04b';
+    // fond blanc
     ctx.beginPath();
-    ctx.arc(C, C, R_OUT - 2, 0, Math.PI*2);
-    ctx.stroke();
+    ctx.arc(cx, cy, radius + 1.5, 0, Math.PI*2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
 
-    // Bordure intérieure blanche discrète
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-    ctx.beginPath();
-    ctx.arc(C, C, R_PHOTO + 1, 0, Math.PI*2);
-    ctx.stroke();
-
-    // Photo centrée
+    // logo
     ctx.save();
     ctx.beginPath();
-    ctx.arc(C, C, R_PHOTO, 0, Math.PI*2);
+    ctx.arc(cx, cy, radius - 1, 0, Math.PI*2);
+    ctx.clip();
+    if (imageEl && imageEl.complete && imageEl.naturalWidth > 0){
+      var d = (radius - 1) * 2;
+      ctx.drawImage(imageEl, cx - d/2, cy - d/2, d, d);
+    }
+    ctx.restore();
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, S, S);
+
+    // Fond
+    ctx.fillStyle = '#071a33';
+    ctx.fillRect(0, 0, S, S);
+
+    // Anneau en dégradé radial
+    var bg = ctx.createRadialGradient(C, C, R_PHOTO, C, C, R_OUT);
+    bg.addColorStop(0, '#0b2547');
+    bg.addColorStop(0.6, '#133a68');
+    bg.addColorStop(1, '#0d2c52');
+    ctx.beginPath();
+    ctx.arc(C, C, R_OUT, 0, Math.PI*2);
+    ctx.fillStyle = bg;
+    ctx.fill();
+
+    // Grand anneau or extérieur
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = goldGrad();
+    ctx.beginPath();
+    ctx.arc(C, C, R_OUT - 4, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Filet fin intérieur
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(224,199,127,0.55)';
+    ctx.beginPath();
+    ctx.arc(C, C, R_OUT - 16, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Anneau or autour de la photo
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = goldGrad();
+    ctx.beginPath();
+    ctx.arc(C, C, R_PHOTO + 4, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Filet blanc fin
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.beginPath();
+    ctx.arc(C, C, R_PHOTO - 1, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Photo
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(C, C, R_PHOTO - 2, 0, Math.PI*2);
     ctx.clip();
     if (img){
       var s = baseScale()*zoom;
       ctx.drawImage(img, C - iw*s/2 + ox, C - ih*s/2 + oy, iw*s, ih*s);
     } else {
       ctx.fillStyle = '#eef3f9';
-      ctx.fillRect(0,0,S,S);
+      ctx.fillRect(0, 0, S, S);
       ctx.fillStyle = 'rgba(16,45,80,0.12)';
       ctx.beginPath(); ctx.arc(C, C-70, 110, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(C, C+250, 230, 190, 0, 0, Math.PI*2); ctx.fill();
-
       ctx.fillStyle = '#24558a';
       ctx.font = '700 36px '+FONT;
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText('Ajoute ta photo ici', C, C+60);
     }
+    // Ombre intérieure douce (vignette)
+    var vg = ctx.createRadialGradient(C, C, R_PHOTO*0.78, C, C, R_PHOTO);
+    vg.addColorStop(0, 'rgba(7,26,51,0)');
+    vg.addColorStop(1, 'rgba(7,26,51,0.38)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, S, S);
     ctx.restore();
 
-    // Textes courbes sobres et lisibles
-    arcText(variant.top, R_TXT, -Math.PI/2, true, Math.PI*0.76, 32);
-    arcText(variant.left, R_TXT, Math.PI * 0.70, false, Math.PI * 0.32, 23);
-    arcText(variant.right, R_TXT, Math.PI * 0.30, false, Math.PI * 0.32, 23);
+    // Textes courbes
+    arcText(variant.top,   R_TXT, -Math.PI/2, true,  Math.PI*0.76, 32);
+    arcText(variant.left,  R_TXT,  Math.PI*0.70, false, Math.PI*0.32, 23);
+    arcText(variant.right, R_TXT,  Math.PI*0.30, false, Math.PI*0.32, 23);
 
-    // Logos compacts et alignés
-    drawBadge(logoLions, C - R_TXT, C, 27);
-    drawBadge(logoLeo, C + R_TXT, C, 27);
+    // Losanges séparateurs
+    diamondOnRing(-Math.PI*0.94, R_TXT, 6);
+    diamondOnRing(-Math.PI*0.06, R_TXT, 6);
+    diamondOnRing( Math.PI*0.93, R_TXT, 5);
+    diamondOnRing( Math.PI*0.07, R_TXT, 5);
+
+    // Logos
+    drawBadge(logoLions,   C - R_TXT, C, 27);
+    drawBadge(logoLeo,     C + R_TXT, C, 27);
     drawBadge(logoDiabete, C, C + R_TXT, 30);
 
-    // Plaque nominative discrète
+    // Plaque du prénom
     var nm = nameIn.value.trim();
     if (nm){
-      ctx.font = '700 34px '+FONT;
-      var w = Math.min(ctx.measureText(nm).width + 56, 560);
-      var h = 58, x = C - w/2, y = C + R_PHOTO - 100;
+      ctx.font = '800 32px '+FONT;
+      var w = Math.min(ctx.measureText(nm).width + 72, 560);
+      var h = 60, x = C - w/2, y = C + R_PHOTO - 105;
 
       ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,0.25)';
-      ctx.shadowBlur = 10; ctx.shadowOffsetY = 3;
-      rrect(x, y, w, h, 29);
-      ctx.fillStyle = '#c5a04b';
+      ctx.shadowColor = 'rgba(0,0,0,0.35)';
+      ctx.shadowBlur = 14; ctx.shadowOffsetY = 4;
+      rrect(x, y, w, h, 30);
+      ctx.fillStyle = goldGrad();
       ctx.fill();
       ctx.restore();
 
-      ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(7,26,51,0.2)';
-      rrect(x+2, y+2, w-4, h-4, 27); ctx.stroke();
+      ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      rrect(x+3, y+3, w-6, h-6, 27); ctx.stroke();
+
+      diamond(x + 20, y + h/2, 4);
+      diamond(x + w - 20, y + h/2, 4);
 
       ctx.fillStyle = '#071a33';
-      ctx.font = '700 32px '+FONT;
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(nm, C, y + h/2 + 1, w - 32);
+      ctx.fillText(nm, C, y + h/2 + 1, w - 76);
     }
 
     updateMiniPreview();

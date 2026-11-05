@@ -448,7 +448,7 @@ footer{padding:20px 0 calc(96px + var(--safe-b));text-align:center;color:var(--m
   cv.addEventListener('wheel', function(e){ if(!img) return; e.preventDefault();
     zoom = Math.min(3, Math.max(1, zoom - e.deltaY*0.002)); zoomIn.value = zoom; clampOffset(); draw(); }, {passive:false});
 
-  /* ---------- Export & Partage ---------- */
+  /* ---------- Export & Partage avec la photo ---------- */
   function toBlob(){ return new Promise(function(res){ cv.toBlob(res, 'image/png'); }); }
   function downloadImage(){
     return toBlob().then(function(b){
@@ -463,36 +463,55 @@ footer{padding:20px 0 calc(96px + var(--safe-b));text-align:center;color:var(--m
   dlM.addEventListener('click', downloadImage);
 
   if (navigator.share && navigator.canShare){ shareBtn.hidden = false; shareM.hidden = false; }
-  function doShare(){
+
+  function copyTextSilent(){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(caption.value).catch(function(){});
+    }
+  }
+
+  function shareWithPhoto(platform){
+    if (!img){
+      toast('Ajoute d\'abord une photo !');
+      return;
+    }
     toBlob().then(function(b){
       var f = new File([b], FILENAME, {type:'image/png'});
-      if (navigator.canShare({files:[f]})){
-        navigator.share({files:[f], text: variant.caption}).catch(function(){});
+      if (navigator.canShare && navigator.canShare({files:[f]})){
+        navigator.share({
+          files: [f],
+          title: 'Je bouge contre le diabète',
+          text: variant.caption
+        }).catch(function(){});
       } else {
-        toast('Utilise Télécharger puis partage l\'image.');
+        downloadImage().then(function(){
+          copyTextSilent();
+          if (platform === 'wa'){
+            window.open('https://web.whatsapp.com/', '_blank');
+            toast('Photo téléchargée et texte copié ! Glisse la photo dans WhatsApp.');
+          } else if (platform === 'fb'){
+            window.open('https://www.facebook.com/', '_blank');
+            toast('Photo téléchargée et texte copié ! Publie la photo sur Facebook.');
+          } else if (platform === 'x'){
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(variant.caption), '_blank');
+            toast('Photo téléchargée et texte copié ! Ajoute la photo au tweet.');
+          } else if (platform === 'insta'){
+            window.open('https://www.instagram.com/', '_blank');
+            toast('Photo téléchargée ! Ajoute la photo sur Instagram.');
+          } else {
+            toast('Photo téléchargée et texte copié !');
+          }
+        });
       }
     });
   }
-  shareBtn.addEventListener('click', doShare);
-  shareM.addEventListener('click', doShare);
 
-  function getShareUrl(){ return window.location.href; }
-
-  shareWa.addEventListener('click', function(){
-    var txt = encodeURIComponent(variant.caption + '\n\nCrée ton cadre ici : ' + getShareUrl());
-    window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
-  });
-  shareFb.addEventListener('click', function(){
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(getShareUrl()), '_blank', 'width=600,height=500');
-  });
-  shareX.addEventListener('click', function(){
-    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(variant.caption) + '&url=' + encodeURIComponent(getShareUrl()), '_blank', 'width=600,height=500');
-  });
-  shareInsta.addEventListener('click', function(){
-    downloadImage().then(function(){
-      setTimeout(function(){ toast('Ouvre Instagram pour publier ta photo !'); }, 800);
-    });
-  });
+  shareBtn.addEventListener('click', function(){ shareWithPhoto('native'); });
+  shareM.addEventListener('click', function(){ shareWithPhoto('native'); });
+  shareWa.addEventListener('click', function(){ shareWithPhoto('wa'); });
+  shareFb.addEventListener('click', function(){ shareWithPhoto('fb'); });
+  shareX.addEventListener('click', function(){ shareWithPhoto('x'); });
+  shareInsta.addEventListener('click', function(){ shareWithPhoto('insta'); });
 
   document.getElementById('copy').addEventListener('click', function(){
     function ok(){ toast('Texte copié !'); }

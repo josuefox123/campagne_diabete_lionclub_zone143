@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#031432">
-<title>Je bouge contre le diabète · Lions Clubs Zone 143</title>
+<title>Je bouge contre le diabète · Lions & Leo Zone 143</title>
 <meta name="description" content="Crée ta photo de profil officielle pour la Journée Mondiale du Diabète, le 14 novembre 2026. Campagne des Lions et Leos de la Zone 143.">
-<meta property="og:title" content="Je bouge contre le diabète · Lions Clubs Zone 143">
+<meta property="og:title" content="Je bouge contre le diabète · Lions & Leo Zone 143">
 <meta property="og:description" content="Ajoute ta photo, génère ton cadre officiel et rejoins la campagne du 14 novembre 2026.">
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Je%20bouge%20contre%20le%20diab%C3%A8te%22%2C%22short_name%22%3A%22Lions%20Zone%20143%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23031432%22%2C%22theme_color%22%3A%22%23031432%22%2C%22icons%22%3A%5B%5D%7D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +83,7 @@ body{
 header{
   background:linear-gradient(135deg, #020d20 0%, #071f48 50%, #0c3e7f 100%);
   color:#fff;
-  padding:calc(24px + var(--safe-t)) 0 28px;
+  padding:calc(22px + var(--safe-t)) 0 26px;
   position:relative;
   overflow:hidden;
   border-bottom:3px solid var(--gold);
@@ -97,6 +97,33 @@ header::before{
   pointer-events:none;
 }
 header .wrap{position:relative;z-index:1}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.logos-trio{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-logo{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#fff;
+  border:2px solid var(--gold);
+  padding:2px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+.brand-logo.logo-diabete{
+  padding:4px;
+}
 .lions-badge{
   display:inline-flex;
   align-items:center;
@@ -107,11 +134,10 @@ header .wrap{position:relative;z-index:1}
   font-family:'Montserrat',sans-serif;
   font-weight:700;
   font-size:11px;
-  letter-spacing:.08em;
+  letter-spacing:.06em;
   text-transform:uppercase;
-  padding:5px 12px;
+  padding:6px 14px;
   border-radius:999px;
-  margin-bottom:10px;
   backdrop-filter:blur(8px);
 }
 .lions-badge span.dot{
@@ -148,12 +174,13 @@ header p{
 }
 @media(max-width:600px){
   header{padding:calc(16px + var(--safe-t)) 0 20px}
-  h1{font-size:25px}
+  .brand-logo{width:40px;height:40px}
+  h1{font-size:24px}
   header p{font-size:13.5px}
 }
 
 main{padding:20px 0 calc(96px + var(--safe-b))}
-@media(min-width:801px){main{padding-bottom:48px}}
+@media(min-width:851px){main{padding-bottom:48px}}
 
 .grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:22px;align-items:start}
 @media(max-width:850px){.grid{grid-template-columns:1fr;gap:14px}}
@@ -418,12 +445,104 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
 }
 .privacy b{color:var(--ink)}
 
+/* SECTION CLUBS ZONE 143 */
+.clubs-card{
+  margin-top:24px;
+  background:linear-gradient(135deg, var(--card) 0%, var(--sky) 100%);
+  border:1.5px solid var(--line);
+}
+@media(prefers-color-scheme: dark){
+  .clubs-card{background:linear-gradient(135deg, #0d182b 0%, #121e35 100%)}
+}
+.clubs-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.clubs-header .material-symbols-outlined{
+  font-size:28px;
+  color:var(--gold);
+}
+.clubs-header h3{
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  color:var(--blue);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+@media(prefers-color-scheme: dark){.clubs-header h3{color:var(--gold-light)}}
+.clubs-header p{
+  margin:2px 0 0;
+  font-size:13px;
+  color:var(--muted);
+}
+.clubs-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.club-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.group-title{
+  font-size:13px;
+  font-weight:700;
+  color:var(--ink);
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+.club-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.club-tag{
+  display:inline-block;
+  background:rgba(12,78,162,0.08);
+  border:1px solid rgba(12,78,162,0.18);
+  border-radius:8px;
+  padding:5px 12px;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink);
+}
+@media(prefers-color-scheme: dark){
+  .club-tag{
+    background:rgba(245,179,1,0.08);
+    border-color:rgba(245,179,1,0.25);
+    color:var(--gold-light);
+  }
+}
+
 footer{
-  padding:24px 0 calc(96px + var(--safe-b));
+  padding:28px 0 calc(96px + var(--safe-b));
   text-align:center;
   color:var(--muted);
   font-size:12px;
   line-height:1.6;
+}
+.footer-logos{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+.footer-logo{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1.5px solid var(--gold);
+  background:#fff;
+  padding:2px;
 }
 .footer-badge{
   font-family:'Montserrat',sans-serif;
@@ -435,7 +554,13 @@ footer{
   margin-bottom:4px;
 }
 @media(prefers-color-scheme: dark){.footer-badge{color:var(--gold)}}
-@media(min-width:801px){footer{padding-bottom:36px}}
+.footer-clubs{
+  max-width:720px;
+  margin:6px auto 0;
+  font-size:11.5px;
+  opacity:.9;
+}
+@media(min-width:851px){footer{padding-bottom:36px}}
 
 /* TOAST */
 .toast{
@@ -490,9 +615,16 @@ footer{
 <body>
 <header>
   <div class="wrap">
-    <div class="lions-badge">
-      <span class="dot"></span>
-      Lions Clubs International · Zone 143 · District 403-A4
+    <div class="header-top">
+      <div class="logos-trio">
+        <img src="assets/logo-lions.jpg" alt="Logo Lions Clubs International" class="brand-logo logo-lions" title="Lions Clubs International">
+        <img src="assets/logo-diabete.png" alt="Logo Cause Mondiale du Diabète" class="brand-logo logo-diabete" title="Cause Mondiale du Diabète">
+        <img src="assets/logo-leo.png" alt="Logo Leo Club" class="brand-logo logo-leo" title="Leo Club International">
+      </div>
+      <div class="lions-badge">
+        <span class="dot"></span>
+        Lions International · District 403-A4 · Région 14 · Zone 143
+      </div>
     </div>
     <h1>Je bouge contre le diabète</h1>
     <p>Affiche fièrement ton engagement pour la Journée Mondiale du Diabète le samedi 14 novembre 2026. Génère ton cadre officiel et partage-le sur tes réseaux.</p>
@@ -576,12 +708,51 @@ footer{
       </div>
     </section>
   </div>
+
+  <!-- SECTION CLUBS DE LA ZONE 143 -->
+  <section class="card clubs-card" aria-label="Clubs participants de la Zone 143">
+    <div class="clubs-header">
+      <span class="material-symbols-outlined">workspace_premium</span>
+      <div>
+        <h3>Lions International — District 403-A4 · Région 14 — Zone 143</h3>
+        <p>Les clubs Lions et Leo unis pour la Journée Mondiale du Diabète 2026</p>
+      </div>
+    </div>
+    <div class="clubs-list">
+      <div class="club-group">
+        <span class="group-title">Clubs Lions :</span>
+        <div class="club-tags">
+          <span class="club-tag">Abomey-Calavi Acacia</span>
+          <span class="club-tag">Abomey-Calavi La Colombe</span>
+          <span class="club-tag">Abomey-Calavi Diamant</span>
+          <span class="club-tag">Godomey Synergie</span>
+          <span class="club-tag">Abomey-Calavi Oasis</span>
+        </div>
+      </div>
+      <div class="club-group">
+        <span class="group-title">Clubs Leo :</span>
+        <div class="club-tags">
+          <span class="club-tag">Abomey-Calavi Ortie</span>
+          <span class="club-tag">Abomey-Calavi Le Havre De Paix</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="footer-badge">Lions Clubs International · Région 14 · District 403-A4</div>
-    <div>Zone 143 · Abomey-Calavi · Campagne digitale & Matinée sportive du 14 novembre 2026</div>
+    <div class="footer-logos">
+      <img src="assets/logo-lions.jpg" alt="Lions Clubs" class="footer-logo">
+      <img src="assets/logo-diabete.png" alt="Cause Diabète" class="footer-logo">
+      <img src="assets/logo-leo.png" alt="Leo Club" class="footer-logo">
+    </div>
+    <div class="footer-badge">Lions International · District 403-A4 · Région 14 · Zone 143</div>
+    <div class="footer-clubs">
+      <b>Clubs Lions :</b> Abomey-Calavi Acacia • Abomey-Calavi La Colombe • Abomey-Calavi Diamant • Godomey Synergie • Abomey-Calavi Oasis<br>
+      <b>Clubs Leo :</b> Abomey-Calavi Ortie • Abomey-Calavi Le Havre De Paix
+    </div>
+    <div style="margin-top:8px">Campagne digitale & Matinée sportive du 14 novembre 2026 · Abomey-Calavi</div>
   </div>
 </footer>
 
@@ -603,13 +774,22 @@ footer{
   var FILENAME = 'je-bouge-contre-le-diabete-zone143.png';
   var CAMPAIGN_URL = 'https://campagnediabetelionclubzone143.vercel.app/';
 
+  // Chargement des 3 logos officiels
+  var logoDiabete = new Image(); logoDiabete.src = 'assets/logo-diabete.png';
+  var logoLions = new Image(); logoLions.src = 'assets/logo-lions.jpg';
+  var logoLeo = new Image(); logoLeo.src = 'assets/logo-leo.png';
+
+  [logoDiabete, logoLions, logoLeo].forEach(function(imgEl){
+    imgEl.onload = function(){ draw(); };
+  });
+
   var VARIANTS = [
-    {id:'soutien', label:'Je soutiens la lutte contre le diabète', top:'JE SOUTIENS LA LUTTE CONTRE LE DIABÈTE', bottom:'ZONE 143 · LIONS & LEO · 14 NOV. 2026',
-     caption:'Je soutiens la lutte contre le diabète.\nAvec les Lions et Leos de la Zone 143, je me mobilise pour la Journée Mondiale du Diabète, le samedi 14 novembre 2026.\n\nCrée ton cadre officiel et rejoins la mobilisation :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète #LionsInternational'},
-    {id:'bouge', label:'Je bouge contre le diabète', top:'JE BOUGE CONTRE LE DIABÈTE', bottom:'MATINÉE SPORTIVE · 14 NOV. 2026',
-     caption:'Je bouge contre le diabète !\nRendez-vous samedi 14 novembre 2026 pour une matinée sportive et une causerie-santé avec les Lions et Leos de la Zone 143.\nBouger, c\'est prévenir !\n\nCrée ton cadre officiel ici :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète #LionsInternational'},
-    {id:'la', label:'Je serai là le 14 novembre', top:'JE SERAI LÀ LE 14 NOVEMBRE', bottom:'SPORT & SANTÉ · ABOMEY-CALAVI',
-     caption:'Je serai là le 14 novembre 2026 !\nMatinée sport et sensibilisation contre le diabète avec les Lions et Leos de la Zone 143, à Abomey-Calavi.\nViens bouger avec nous !\n\nCrée ton cadre officiel ici :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète #LionsInternational'}
+    {id:'soutien', label:'Je soutiens la lutte contre le diabète', top:'JE SOUTIENS LA LUTTE CONTRE LE DIABÈTE', left:'ZONE 143 · LIONS & LEO', right:'14 NOVEMBRE 2026',
+     caption:'Je soutiens la lutte contre le diabète.\nAvec les Lions et Leos de la Zone 143, je me mobilise pour la Journée Mondiale du Diabète, le samedi 14 novembre 2026.\n\nClubs Lions & Leo organisateurs (Zone 143 / District 403-A4) :\n• Lions : Abomey-Calavi Acacia, La Colombe, Diamant, Godomey Synergie, Oasis\n• Leo : Abomey-Calavi Ortie, Le Havre De Paix\n\nCrée ton cadre officiel et rejoins la mobilisation :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #LeoClub #JournéeMondialeDuDiabète #LionsInternational'},
+    {id:'bouge', label:'Je bouge contre le diabète', top:'JE BOUGE CONTRE LE DIABÈTE', left:'MATINÉE SPORTIVE', right:'14 NOVEMBRE 2026',
+     caption:'Je bouge contre le diabète !\nRendez-vous samedi 14 novembre 2026 pour une matinée sportive et une causerie-santé avec les Lions et Leos de la Zone 143.\nBouger, c\'est prévenir !\n\nCrée ton cadre officiel ici :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #LeoClub #JournéeMondialeDuDiabète #LionsInternational'},
+    {id:'la', label:'Je serai là le 14 novembre', top:'JE SERAI LÀ LE 14 NOVEMBRE', left:'SPORT & SANTÉ', right:'ABOMEY-CALAVI',
+     caption:'Je serai là le 14 novembre 2026 !\nMatinée sport et sensibilisation contre le diabète avec les Lions et Leos de la Zone 143, à Abomey-Calavi.\nViens bouger avec nous !\n\nCrée ton cadre officiel ici :\n' + CAMPAIGN_URL + '\n\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #LeoClub #JournéeMondialeDuDiabète #LionsInternational'}
   ];
 
   var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
@@ -652,7 +832,7 @@ footer{
       for (var i=0;i<text.length;i++){ var cw = ctx.measureText(text[i]).width + sz*sp; w.push(cw); t += cw; } return {w:w,t:t};
     }
     var m = measure(size);
-    while (m.t/radius > maxSpan && size > 22){ size -= 2; m = measure(size); }
+    while (m.t/radius > maxSpan && size > 20){ size -= 2; m = measure(size); }
     ctx.font = '900 '+size+'px '+FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#ffffff';
     var total = m.t/radius, a = top ? centerAngle - total/2 : centerAngle + total/2;
     for (var i=0;i<text.length;i++){
@@ -660,7 +840,7 @@ footer{
       ctx.save();
       ctx.translate(C + radius*Math.cos(mid), C + radius*Math.sin(mid));
       ctx.rotate(top ? mid + Math.PI/2 : mid - Math.PI/2);
-      ctx.shadowColor = 'rgba(0,0,0,0.45)';
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
       ctx.shadowBlur = 6;
       ctx.fillText(text[i], 0, 1);
       ctx.restore();
@@ -669,15 +849,43 @@ footer{
     ctx.restore();
   }
 
-  function bluecircle(x, y, r){
+  function drawBadge(imageEl, cx, cy, radius){
     ctx.save();
-    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.lineWidth = r*0.36;
-    ctx.strokeStyle = '#ffffff';
+    // Ombre sous le badge
+    ctx.shadowColor = 'rgba(0,0,0,0.45)';
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 4;
+
+    // Fond blanc
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.restore();
+
+    // Clip circulaire pour l'image
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius - 2, 0, Math.PI * 2);
+    ctx.clip();
+    if (imageEl && imageEl.complete && imageEl.naturalWidth > 0){
+      ctx.drawImage(imageEl, cx - (radius - 2), cy - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+    }
+    ctx.restore();
+
+    // Double liseré or
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#f5b301';
     ctx.stroke();
-    // anneau fin doré
-    ctx.beginPath(); ctx.arc(x,y,r+r*0.28,0,Math.PI*2);
-    ctx.lineWidth = 2.5; ctx.strokeStyle = '#f5b301'; ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius - 3, 0, Math.PI * 2);
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#c98e00';
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -745,12 +953,22 @@ footer{
     ctx.restore();
 
     // Textes courbes prestige
+    // Haut : message d'engagement
     arcText(variant.top, R_TXT, -Math.PI/2, true, Math.PI*0.78, 44);
-    arcText(variant.bottom, R_TXT, Math.PI/2, false, Math.PI*0.78, 36);
 
-    // Symboles universels du diabète (cercle bleu avec anneau or)
-    bluecircle(C-R_TXT, C, 25);
-    bluecircle(C+R_TXT, C, 25);
+    // Bas : 2 arcs latéraux encadrant le logo central du diabète
+    arcText(variant.left, R_TXT, Math.PI * 0.70, false, Math.PI * 0.34, 33);
+    arcText(variant.right, R_TXT, Math.PI * 0.30, false, Math.PI * 0.34, 33);
+
+    // LES 3 LOGOS OFFICIELS SUR LE CADRE
+    // 1. Logo Lions Clubs International (côté gauche)
+    drawBadge(logoLions, C - R_TXT, C, 38);
+
+    // 2. Logo Leo Club International (côté droit)
+    drawBadge(logoLeo, C + R_TXT, C, 38);
+
+    // 3. Logo Cause Mondiale du Diabète (en bas au centre)
+    drawBadge(logoDiabete, C, C + R_TXT, 42);
 
     // Plaque nominative dorée personnalisée
     var nm = nameIn.value.trim();
@@ -770,7 +988,6 @@ footer{
       ctx.fillStyle = plateGrad; ctx.fill();
       ctx.restore();
 
-      // Filet fin bleu nuit sur la plaque
       ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(3,20,50,0.3)';
       rrect(x+3,y+3,w-6,h-6,33); ctx.stroke();
 

@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Je bouge contre le diabète · Zone 143</title>
+<meta name="description" content="Crée ta photo de profil pour la Journée Mondiale du Diabète, le 14 novembre 2026. Campagne des Lions et Leos de la Zone 143.">
+<meta property="og:title" content="Je bouge contre le diabète · Zone 143">
+<meta property="og:description" content="Ajoute ta photo, télécharge ton cadre et rejoins la campagne du 14 novembre 2026.">
+<style>
+:root{
+  --navy:#071f4a; --blue:#0b4fa8; --sky:#e8f1fc; --gold:#f2b705; --ink:#0f1b33; --muted:#5a6783;
+  --bg:#f5f8fd; --card:#ffffff; --line:#dbe5f3;
+  --wa:#25d366; --fb:#1877f2; --x:#000000; --insta:#e1306c;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:28px 0 32px}
+.eyebrow{display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:12px 0 8px;font-weight:900}
+header p{margin:0;max-width:640px;opacity:.92}
+main{padding:24px 0 40px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.stage{position:relative}
+canvas{display:block;width:100%;height:auto;border-radius:12px;touch-action:none;cursor:grab;background:var(--navy)}
+canvas.drag{cursor:grabbing}
+.hint{font-size:13px;color:var(--muted);margin:10px 2px 0;text-align:center}
+.step{font-weight:800;font-size:13px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
+.block+.block{margin-top:20px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;border:2px dashed #9db8df;background:var(--sky);border-radius:12px;padding:22px 14px;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--blue);background:#dcebfb}
+.drop strong{color:var(--blue)}
+.drop small{color:var(--muted)}
+input[type=file]{display:none}
+.chips{display:flex;flex-direction:column;gap:8px}
+.chip{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:#fff;font-weight:600;font-size:14px}
+.chip input{accent-color:var(--blue);width:18px;height:18px;margin:0}
+.chip:has(input:checked){border-color:var(--blue);background:var(--sky)}
+label.f{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+input[type=text],textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink)}
+input[type=text]:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
+textarea{resize:vertical;min-height:110px;font-size:14px}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;font-weight:800;border:0;border-radius:12px;padding:14px 18px;cursor:pointer;transition:.15s}
+button:focus-visible,.drop:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.primary{background:var(--blue);color:#fff;flex:1 1 200px;font-size:16px}
+.primary:hover:not(:disabled){background:var(--navy)}
+.ghost{background:var(--sky);color:var(--blue);flex:1 1 140px}
+.ghost:hover:not(:disabled){background:#d3e5fa}
+button:disabled{opacity:.45;cursor:not-allowed}
+
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.btn-social{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;font-size:14px;color:#fff;text-decoration:none}
+.btn-wa{background:var(--wa)}
+.btn-fb{background:var(--fb)}
+.btn-x{background:var(--x)}
+.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+
+.privacy{font-size:13px;color:var(--muted);margin-top:10px}
+.privacy b{color:var(--ink)}
+footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Samedi 14 novembre 2026 · Journée Mondiale du Diabète</span>
+    <h1>Je bouge contre le diabète</h1>
+    <p>Les Lions et Leos de la Zone 143 t'invitent à afficher ton engagement. Ajoute ta photo, télécharge ton cadre et partage-le en photo de profil ou en statut.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <section class="card stage" aria-label="Aperçu">
+      <canvas id="cv" width="1080" height="1080" aria-label="Aperçu de ta photo avec le cadre de la campagne"></canvas>
+      <p class="hint" id="hint">Ajoute une photo pour commencer.</p>
+    </section>
+
+    <section class="card" aria-label="Réglages">
+      <div class="block">
+        <p class="step">1 · Ta photo</p>
+        <label class="drop" id="drop" tabindex="0" for="file">
+          <strong id="dropTitle">Choisir une photo</strong>
+          <small>ou glisse-la ici (JPG, PNG, HEIC selon ton téléphone)</small>
+        </label>
+        <input type="file" id="file" accept="image/*">
+      </div>
+
+      <div class="block">
+        <p class="step">2 · Ton message</p>
+        <div class="chips" id="variants"></div>
+      </div>
+
+      <div class="block">
+        <p class="step">3 · Personnalise</p>
+        <label class="f" for="name">Ton prénom (facultatif)</label>
+        <input type="text" id="name" maxlength="24" placeholder="Ex. Aïcha" autocomplete="given-name">
+        <label class="f" for="zoom" style="margin-top:14px">Zoom</label>
+        <input type="range" id="zoom" min="1" max="3" step="0.01" value="1" disabled>
+        <p class="hint" style="text-align:left;margin-top:6px">Glisse la photo dans l'aperçu pour la recadrer.</p>
+      </div>
+
+      <div class="block">
+        <p class="step">4 · Télécharge et partage</p>
+        <div class="row">
+          <button class="primary" id="dl" disabled>Télécharger mon cadre</button>
+          <button class="ghost" id="share" disabled hidden>Partager ma photo</button>
+        </div>
+
+        <div class="social-grid">
+          <button class="btn-social btn-wa" id="shareWa" type="button">WhatsApp</button>
+          <button class="btn-social btn-fb" id="shareFb" type="button">Facebook</button>
+          <button class="btn-social btn-x" id="shareX" type="button">X / Twitter</button>
+          <button class="btn-social btn-insta" id="shareInsta" type="button">Instagram</button>
+        </div>
+
+        <p class="privacy">🔒 <b>Ta photo reste sur ton appareil.</b> Rien n'est envoyé sur internet : tout se passe dans ton navigateur.</p>
+      </div>
+
+      <div class="block">
+        <p class="step">Texte à publier avec</p>
+        <textarea id="caption" rows="5" readonly></textarea>
+        <div class="row" style="margin-top:8px"><button class="ghost" id="copy">Copier le texte</button></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Campagne digitale et matinée sportive · Zone 143 · Région 14 · District 403-A4 · Abomey-Calavi</div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  'use strict';
+  var S = 1080, C = S/2;
+  var R_PHOTO = 452;
+  var R_OUT = 532;
+  var R_TXT = (R_PHOTO+R_OUT)/2;
+  var FONT = '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+
+  var VARIANTS = [
+    {id:'soutien', label:'Je soutiens la lutte contre le diabète', top:'JE SOUTIENS LA LUTTE CONTRE LE DIABÈTE', bottom:'ZONE 143 · LIONS & LEO · 14 NOV. 2026',
+     caption:'Je soutiens la lutte contre le diabète 💙\nAvec les Lions et Leos de la Zone 143, je me mobilise pour la Journée Mondiale du Diabète, le 14 novembre 2026.\nAdopte le cadre, partage et passe le mot !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
+    {id:'bouge', label:'Je bouge contre le diabète', top:'JE BOUGE CONTRE LE DIABÈTE', bottom:'MATINÉE SPORTIVE · 14 NOV. 2026',
+     caption:'Je bouge contre le diabète 🏃‍♂️💙\nRendez-vous samedi 14 novembre 2026 pour une matinée sportive et une causerie-santé avec les Lions et Leos de la Zone 143.\nBouger, c\'est prévenir !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
+    {id:'la', label:'Je serai là le 14 novembre', top:'JE SERAI LÀ LE 14 NOVEMBRE', bottom:'SPORT & SANTÉ · ABOMEY-CALAVI',
+     caption:'Je serai là le 14 novembre 2026 ! 💙\nMatinée sport et sensibilisation contre le diabète avec les Lions et Leos de la Zone 143, à Abomey-Calavi.\nViens bouger avec nous !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'}
+  ];
+
+  var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  var fileIn = document.getElementById('file'), drop = document.getElementById('drop');
+  var nameIn = document.getElementById('name'), zoomIn = document.getElementById('zoom');
+  var dl = document.getElementById('dl'), shareBtn = document.getElementById('share');
+  var shareWa = document.getElementById('shareWa'), shareFb = document.getElementById('shareFb');
+  var shareX = document.getElementById('shareX'), shareInsta = document.getElementById('shareInsta');
+  var hint = document.getElementById('hint'), caption = document.getElementById('caption');
+  var toastEl = document.getElementById('toast');
+
+  var img = null, iw = 0, ih = 0;
+  var zoom = 1, ox = 0, oy = 0;
+  var variant = VARIANTS[0];
+
+  /* ---------- Variantes ---------- */
+  var vbox = document.getElementById('variants');
+  VARIANTS.forEach(function(v, i){
+    var l = document.createElement('label'); l.className = 'chip';
+    var r = document.createElement('input'); r.type = 'radio'; r.name = 'variant'; r.value = v.id; r.checked = i === 0;
+    r.addEventListener('change', function(){ variant = v; updateCaption(); draw(); });
+    l.appendChild(r); l.appendChild(document.createTextNode(v.label)); vbox.appendChild(l);
+  });
+  function updateCaption(){ caption.value = variant.caption; }
+  updateCaption();
+
+  /* ---------- Dessin ---------- */
+  function baseScale(){ return Math.max(2*R_PHOTO/iw, 2*R_PHOTO/ih); }
+
+  function clampOffset(){
+    var s = baseScale()*zoom, maxX = Math.max(0,(iw*s - 2*R_PHOTO)/2), maxY = Math.max(0,(ih*s - 2*R_PHOTO)/2);
+    ox = Math.min(maxX, Math.max(-maxX, ox)); oy = Math.min(maxY, Math.max(-maxY, oy));
+  }
+
+  function arcText(text, radius, centerAngle, top, maxSpan, size){
+    ctx.save();
+    var sp = 0.12;
+    function measure(sz){ ctx.font = '800 '+sz+'px '+FONT; var w = [], t = 0;
+      for (var i=0;i<text.length;i++){ var cw = ctx.measureText(text[i]).width + sz*sp; w.push(cw); t += cw; } return {w:w,t:t}; }
+    var m = measure(size);
+    while (m.t/radius > maxSpan && size > 22){ size -= 2; m = measure(size); }
+    ctx.font = '800 '+size+'px '+FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+    var total = m.t/radius, a = top ? centerAngle - total/2 : centerAngle + total/2;
+    for (var i=0;i<text.length;i++){
+      var step = m.w[i]/radius, mid = top ? a + step/2 : a - step/2;
+      ctx.save();
+      ctx.translate(C + radius*Math.cos(mid), C + radius*Math.sin(mid));
+      ctx.rotate(top ? mid + Math.PI/2 : mid - Math.PI/2);
+      ctx.fillText(text[i], 0, 1);
+      ctx.restore();
+      a += top ? step : -step;
+    }
+    ctx.restore();
+  }
+
+  function bluecircle(x, y, r){
+    ctx.save(); ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.lineWidth = r*0.34; ctx.strokeStyle = '#fff'; ctx.stroke(); ctx.restore();
+  }
+
+  function rrect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+  function draw(){
+    ctx.clearRect(0,0,S,S);
+    var g = ctx.createLinearGradient(0,0,S,S); g.addColorStop(0,'#071f4a'); g.addColorStop(1,'#0b4fa8');
+    ctx.fillStyle = g; ctx.fillRect(0,0,S,S);
+
+    ctx.beginPath(); ctx.arc(C,C,R_OUT,0,Math.PI*2); ctx.fillStyle = '#0b4fa8'; ctx.fill();
+    ctx.lineWidth = 8; ctx.strokeStyle = '#f2b705'; ctx.beginPath(); ctx.arc(C,C,R_OUT-4,0,Math.PI*2); ctx.stroke();
+    ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.beginPath(); ctx.arc(C,C,R_PHOTO+2.5,0,Math.PI*2); ctx.stroke();
+
+    ctx.save(); ctx.beginPath(); ctx.arc(C,C,R_PHOTO,0,Math.PI*2); ctx.clip();
+    if (img){
+      var s = baseScale()*zoom;
+      ctx.drawImage(img, C - iw*s/2 + ox, C - ih*s/2 + oy, iw*s, ih*s);
+    } else {
+      var pg = ctx.createRadialGradient(C,C-80,40,C,C,R_PHOTO); pg.addColorStop(0,'#cfe2fb'); pg.addColorStop(1,'#8fb4e6');
+      ctx.fillStyle = pg; ctx.fillRect(0,0,S,S);
+      ctx.fillStyle = 'rgba(255,255,255,.75)';
+      ctx.beginPath(); ctx.arc(C,C-70,110,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(C,C+250,230,190,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#0b4fa8'; ctx.font = '800 40px '+FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Ta photo ici', C, C+60);
+    }
+    ctx.restore();
+
+    arcText(variant.top, R_TXT, -Math.PI/2, true, Math.PI*0.78, 44);
+    arcText(variant.bottom, R_TXT, Math.PI/2, false, Math.PI*0.78, 36);
+    bluecircle(C-R_TXT, C, 24); bluecircle(C+R_TXT, C, 24);
+
+    var nm = nameIn.value.trim();
+    if (nm){
+      ctx.font = '800 46px '+FONT; var w = Math.min(ctx.measureText(nm).width + 64, 640), h = 70, x = C - w/2, y = C + R_PHOTO - 120;
+      ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 4;
+      rrect(x,y,w,h,35); ctx.fillStyle = '#f2b705'; ctx.fill(); ctx.restore();
+      ctx.fillStyle = '#071f4a'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(nm, C, y+h/2+2, w-40);
+    }
+  }
+
+  /* ---------- Chargement de la photo ---------- */
+  function setImage(source, w, h){
+    img = source; iw = w; ih = h; zoom = 1; ox = oy = 0;
+    zoomIn.value = 1; zoomIn.disabled = false; dl.disabled = false; shareBtn.disabled = false;
+    hint.textContent = 'Glisse pour recadrer, utilise le curseur pour zoomer.';
+    document.getElementById('dropTitle').textContent = 'Changer de photo';
+    draw();
+  }
+  function loadFile(f){
+    if (!f || (!/^image\//.test(f.type) && !/\.(heic|heif|jpe?g|png|webp)$/i.test(f.name))) { toast('Ce fichier n\'est pas une image.'); return; }
+    if (window.createImageBitmap){
+      createImageBitmap(f, {imageOrientation:'from-image'}).then(function(b){ setImage(b, b.width, b.height); })
+        .catch(function(){ viaImg(f); });
+    } else viaImg(f);
+  }
+  function viaImg(f){
+    var url = URL.createObjectURL(f), im = new Image();
+    im.onload = function(){ setImage(im, im.naturalWidth, im.naturalHeight); URL.revokeObjectURL(url); };
+    im.onerror = function(){ URL.revokeObjectURL(url); toast('Impossible de lire cette image. Essaie un JPG ou un PNG.'); };
+    im.src = url;
+  }
+  fileIn.addEventListener('change', function(){ loadFile(fileIn.files[0]); fileIn.value = ''; });
+  drop.addEventListener('keydown', function(e){ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); fileIn.click(); } });
+  ['dragenter','dragover'].forEach(function(t){ drop.addEventListener(t,function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave','drop'].forEach(function(t){ drop.addEventListener(t,function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ loadFile(e.dataTransfer.files[0]); });
+
+  /* ---------- Réglages ---------- */
+  nameIn.addEventListener('input', draw);
+  zoomIn.addEventListener('input', function(){ zoom = parseFloat(zoomIn.value); clampOffset(); draw(); });
+
+  /* ---------- Glisser pour recadrer ---------- */
+  var pts = {}, last = null, pinch0 = null;
+  function cvScale(){ return S / cv.getBoundingClientRect().width; }
+  cv.addEventListener('pointerdown', function(e){
+    if (!img) return; cv.setPointerCapture(e.pointerId); pts[e.pointerId] = {x:e.clientX,y:e.clientY};
+    cv.classList.add('drag'); last = {x:e.clientX,y:e.clientY};
+    if (Object.keys(pts).length === 2) pinch0 = {d:dist(), z:zoom};
+  });
+  cv.addEventListener('pointermove', function(e){
+    if (!img || !pts[e.pointerId]) return;
+    pts[e.pointerId] = {x:e.clientX,y:e.clientY};
+    var n = Object.keys(pts).length;
+    if (n >= 2 && pinch0){
+      zoom = Math.min(3, Math.max(1, pinch0.z * dist()/pinch0.d)); zoomIn.value = zoom;
+    } else if (n === 1){
+      var k = cvScale(); ox += (e.clientX-last.x)*k; oy += (e.clientY-last.y)*k; last = {x:e.clientX,y:e.clientY};
+    }
+    clampOffset(); draw();
+  });
+  function endPtr(e){ delete pts[e.pointerId]; pinch0 = null; cv.classList.remove('drag');
+    var k = Object.keys(pts); if (k.length===1) last = pts[k[0]]; }
+  cv.addEventListener('pointerup', endPtr); cv.addEventListener('pointercancel', endPtr);
+  function dist(){ var k = Object.keys(pts), a = pts[k[0]], b = pts[k[1]]; return Math.hypot(a.x-b.x, a.y-b.y) || 1; }
+  cv.addEventListener('wheel', function(e){ if(!img) return; e.preventDefault();
+    zoom = Math.min(3, Math.max(1, zoom - e.deltaY*0.002)); zoomIn.value = zoom; clampOffset(); draw(); }, {passive:false});
+
+  /* ---------- Export & Partage ---------- */
+  function toBlob(){ return new Promise(function(res){ cv.toBlob(res, 'image/png'); }); }
+  var FILENAME = 'je-bouge-contre-le-diabete-zone143.png';
+
+  function downloadImage(){
+    return toBlob().then(function(b){
+      var url = URL.createObjectURL(b), a = document.createElement('a');
+      a.href = url; a.download = FILENAME; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      toast('Image téléchargée !');
+      return b;
+    });
+  }
+
+  dl.addEventListener('click', downloadImage);
+
+  if (navigator.share && navigator.canShare){ shareBtn.hidden = false; }
+  shareBtn.addEventListener('click', function(){
+    toBlob().then(function(b){
+      var f = new File([b], FILENAME, {type:'image/png'});
+      if (navigator.canShare({files:[f]})){
+        navigator.share({files:[f], text: variant.caption}).catch(function(){});
+      } else {
+        toast('Utilise Télécharger puis partage l\'image.');
+      }
+    });
+  });
+
+  // Boutons sociaux
+  function getShareUrl(){ return window.location.href; }
+
+  shareWa.addEventListener('click', function(){
+    var txt = encodeURIComponent(variant.caption + '\n\nCrée ton cadre ici : ' + getShareUrl());
+    window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
+  });
+
+  shareFb.addEventListener('click', function(){
+    var url = encodeURIComponent(getShareUrl());
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=500');
+  });
+
+  shareX.addEventListener('click', function(){
+    var txt = encodeURIComponent(variant.caption);
+    var url = encodeURIComponent(getShareUrl());
+    window.open('https://twitter.com/intent/tweet?text=' + txt + '&url=' + url, '_blank', 'width=600,height=500');
+  });
+
+  shareInsta.addEventListener('click', function(){
+    downloadImage().then(function(){
+      toast('Photo téléchargée ! Ouvre Instagram pour la publier en story/profil.');
+    });
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    function ok(){ toast('Texte copié !'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(caption.value).then(ok, fallback); else fallback();
+    function fallback(){ caption.removeAttribute('readonly'); caption.select(); try{ document.execCommand('copy'); ok(); }catch(e){ toast('Copie impossible, sélectionne le texte à la main.'); } caption.setAttribute('readonly',''); }
+  });
+
+  var tt; function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 2800); }
+
+  draw();
+})();
+</script>
+</body>
+</html>

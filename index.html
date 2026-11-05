@@ -589,6 +589,86 @@ footer {
   display: none;
 }
 
+/* Mini aperçu flottant en haut lors du défilement mobile */
+.mini-preview-bar {
+  display: none;
+}
+@media(max-width: 850px) {
+  .mini-preview-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: fixed;
+    top: calc(8px + var(--safe-t));
+    left: 12px;
+    right: 12px;
+    z-index: 80;
+    background: rgba(7, 26, 51, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(197, 160, 75, 0.55);
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(-130%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .mini-preview-bar.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mini-preview-bar canvas {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    background: var(--navy-deep);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .mini-bar-info {
+    flex: 1;
+    min-width: 0;
+    color: #fff;
+    cursor: pointer;
+  }
+  .mini-bar-info strong {
+    display: block;
+    font-size: 11.5px;
+    color: var(--gold-light);
+    line-height: 1.2;
+  }
+  .mini-bar-info span {
+    display: block;
+    font-size: 11px;
+    color: #bdcad9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mini-bar-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .mini-bar-btn .material-symbols-outlined {
+    font-size: 16px;
+  }
+}
+
 /* Responsive */
 @media(max-width: 850px) {
   header {
@@ -652,6 +732,11 @@ footer {
 }
 
 @media(min-width: 851px) {
+  .stage {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
   .desktop-actions {
     display: flex;
   }
@@ -707,6 +792,19 @@ footer {
 </style>
 </head>
 <body>
+<!-- MINI APERÇU RÉDUIT EN HAUT LORS DU SCROLL MOBILE -->
+<div class="mini-preview-bar" id="miniBar" role="region" aria-label="Aperçu réduit du cadre">
+  <canvas id="miniCv" width="120" height="120" aria-label="Miniature du cadre"></canvas>
+  <div class="mini-bar-info" id="miniBarInfo">
+    <strong>Aperçu en direct</strong>
+    <span id="miniBarName">Cadre officiel Zone 143</span>
+  </div>
+  <button type="button" class="mini-bar-btn" id="miniScrollUp">
+    <span class="material-symbols-outlined">expand_less</span>
+    Aperçu
+  </button>
+</div>
+
 <header>
   <div class="wrap">
     <div class="header-top">
@@ -1072,6 +1170,8 @@ footer {
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(nm, C, y + h/2 + 1, w - 32);
     }
+
+    updateMiniPreview();
   }
 
   /* ---------- Chargement de la photo ---------- */
@@ -1231,6 +1331,48 @@ footer {
     toastEl.textContent = m; toastEl.classList.add('show');
     clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 3200);
   }
+
+  /* ---------- Gestion de la miniature réduite au défilement ---------- */
+  var miniCv = document.getElementById('miniCv');
+  var miniCtx = miniCv ? miniCv.getContext('2d') : null;
+  var miniBar = document.getElementById('miniBar');
+  var miniBarInfo = document.getElementById('miniBarInfo');
+  var miniScrollUp = document.getElementById('miniScrollUp');
+  var stageEl = document.querySelector('.stage');
+
+  function updateMiniPreview(){
+    if (miniCv && miniCtx){
+      miniCtx.clearRect(0, 0, 120, 120);
+      miniCtx.drawImage(cv, 0, 0, 120, 120);
+    }
+    var miniName = document.getElementById('miniBarName');
+    if (miniName){
+      var nm = nameIn.value.trim();
+      miniName.textContent = nm ? nm : variant.label;
+    }
+  }
+
+  if (window.IntersectionObserver && stageEl && miniBar){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting){
+          miniBar.classList.add('visible');
+        } else {
+          miniBar.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(stageEl);
+  }
+
+  function scrollToStage(){
+    if (stageEl){
+      stageEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+  if (miniScrollUp) miniScrollUp.addEventListener('click', scrollToStage);
+  if (miniBarInfo) miniBarInfo.addEventListener('click', scrollToStage);
+  if (miniCv) miniCv.addEventListener('click', scrollToStage);
 
   draw();
 })();

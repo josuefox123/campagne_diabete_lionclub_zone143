@@ -2,78 +2,185 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#071f4a">
 <title>Je bouge contre le diabète · Zone 143</title>
 <meta name="description" content="Crée ta photo de profil pour la Journée Mondiale du Diabète, le 14 novembre 2026. Campagne des Lions et Leos de la Zone 143.">
 <meta property="og:title" content="Je bouge contre le diabète · Zone 143">
 <meta property="og:description" content="Ajoute ta photo, télécharge ton cadre et rejoins la campagne du 14 novembre 2026.">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Je%20bouge%20contre%20le%20diab%C3%A8te%22%2C%22short_name%22%3A%22Zone%20143%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23071f4a%22%2C%22theme_color%22%3A%22%23071f4a%22%2C%22icons%22%3A%5B%5D%7D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
 :root{
   --navy:#071f4a; --blue:#0b4fa8; --sky:#e8f1fc; --gold:#f2b705; --ink:#0f1b33; --muted:#5a6783;
   --bg:#f5f8fd; --card:#ffffff; --line:#dbe5f3;
   --wa:#25d366; --fb:#1877f2; --x:#000000; --insta:#e1306c;
+  --radius:16px;
+  --shadow:0 2px 8px rgba(11,79,168,.06), 0 8px 24px rgba(11,79,168,.04);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-t:env(safe-area-inset-top,0px);
 }
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:28px 0 32px}
-.eyebrow{display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
-h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:12px 0 8px;font-weight:900}
-header p{margin:0;max-width:640px;opacity:.92}
-main{padding:24px 0 40px}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
-@media(max-width:800px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
-.stage{position:relative}
-canvas{display:block;width:100%;height:auto;border-radius:12px;touch-action:none;cursor:grab;background:var(--navy)}
-canvas.drag{cursor:grabbing}
-.hint{font-size:13px;color:var(--muted);margin:10px 2px 0;text-align:center}
-.step{font-weight:800;font-size:13px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
-.block+.block{margin-top:20px}
-.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;border:2px dashed #9db8df;background:var(--sky);border-radius:12px;padding:22px 14px;cursor:pointer;transition:.15s}
-.drop:hover,.drop.over{border-color:var(--blue);background:#dcebfb}
-.drop strong{color:var(--blue)}
-.drop small{color:var(--muted)}
-input[type=file]{display:none}
-.chips{display:flex;flex-direction:column;gap:8px}
-.chip{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:#fff;font-weight:600;font-size:14px}
-.chip input{accent-color:var(--blue);width:18px;height:18px;margin:0}
-.chip:has(input:checked){border-color:var(--blue);background:var(--sky)}
-label.f{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
-input[type=text],textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink)}
-input[type=text]:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
-textarea{resize:vertical;min-height:110px;font-size:14px}
-input[type=range]{width:100%;accent-color:var(--blue)}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-button{font:inherit;font-weight:800;border:0;border-radius:12px;padding:14px 18px;cursor:pointer;transition:.15s}
-button:focus-visible,.drop:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.primary{background:var(--blue);color:#fff;flex:1 1 200px;font-size:16px}
-.primary:hover:not(:disabled){background:var(--navy)}
-.ghost{background:var(--sky);color:var(--blue);flex:1 1 140px}
-.ghost:hover:not(:disabled){background:#d3e5fa}
-button:disabled{opacity:.45;cursor:not-allowed}
+@media(prefers-color-scheme: dark){
+  :root{
+    --bg:#0a1220; --card:#121c30; --line:#1f2d47; --ink:#eaf1ff; --muted:#9aabc7; --sky:#16233c;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;overscroll-behavior-y:none}
+.wrap{max-width:1040px;margin:0 auto;padding:0 14px}
 
-.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.btn-social{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;font-size:14px;color:#fff;text-decoration:none}
+.material-symbols-outlined{
+  font-family:'Material Symbols Outlined';
+  font-weight:normal;
+  font-style:normal;
+  font-size:20px;
+  line-height:1;
+  letter-spacing:normal;
+  text-transform:none;
+  display:inline-block;
+  white-space:nowrap;
+  word-wrap:normal;
+  direction:ltr;
+  -webkit-font-smoothing:antialiased;
+  vertical-align:middle;
+}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:calc(20px + var(--safe-t)) 0 24px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(242,183,5,.1);pointer-events:none}
+header .wrap{position:relative;z-index:1}
+.eyebrow{display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+h1{font-size:clamp(22px,5.5vw,40px);line-height:1.1;margin:10px 0 6px;font-weight:900;letter-spacing:-.01em}
+header p{margin:0;max-width:640px;opacity:.92;font-size:15px}
+@media(max-width:600px){
+  header{padding:calc(14px + var(--safe-t)) 0 18px}
+  h1{font-size:26px;margin:8px 0 4px}
+  header p{font-size:13.5px;line-height:1.4}
+}
+
+main{padding:16px 0 calc(96px + var(--safe-b))}
+@media(min-width:801px){main{padding-bottom:40px}}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:800px){.grid{grid-template-columns:1fr;gap:12px}}
+
+/* CARTES */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+@media(max-width:600px){.card{padding:12px;border-radius:14px}}
+
+/* APERÇU */
+.stage{padding:10px}
+@media(max-width:800px){
+  .stage{position:sticky;top:0;z-index:10;padding:8px;background:var(--card);border-radius:0 0 14px 14px;margin:0 -14px;border-radius:0;border-left:0;border-right:0;border-top:0}
+  .stage::before{content:"";position:absolute;inset:0;background:var(--card);z-index:-1}
+}
+canvas{display:block;width:100%;height:auto;border-radius:12px;touch-action:none;cursor:grab;background:var(--navy);aspect-ratio:1/1}
+canvas.drag{cursor:grabbing}
+.hint{font-size:12.5px;color:var(--muted);margin:8px 2px 0;text-align:center}
+
+/* ÉTAPES */
+.step{font-weight:800;font-size:12px;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+@media(prefers-color-scheme: dark){.step{color:var(--gold)}}
+.block+.block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+
+/* DROP ZONE */
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;border:2px dashed #9db8df;background:var(--sky);border-radius:12px;padding:20px 12px;cursor:pointer;transition:.15s;min-height:90px}
+.drop:hover,.drop.over{border-color:var(--blue);background:#dcebfb}
+.drop:active{transform:scale(.98)}
+@media(prefers-color-scheme: dark){.drop:hover,.drop.over{background:#1a2a44}}
+.drop strong{color:var(--blue);font-size:15px;display:inline-flex;align-items:center;gap:6px}
+@media(prefers-color-scheme: dark){.drop strong{color:var(--gold)}}
+.drop small{color:var(--muted);font-size:12px}
+input[type=file]{display:none}
+
+/* CHIPS */
+.chips{display:flex;flex-direction:column;gap:8px}
+.chip{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:var(--card);font-weight:600;font-size:14px;transition:.15s}
+.chip:active{transform:scale(.99)}
+.chip input{accent-color:var(--blue);width:18px;height:18px;margin:0;flex-shrink:0}
+.chip:has(input:checked){border-color:var(--blue);background:var(--sky)}
+@media(prefers-color-scheme: dark){.chip:has(input:checked){background:#16233c;border-color:var(--gold)}}
+
+/* FORMULAIRES */
+label.f{display:block;font-weight:600;font-size:13px;margin-bottom:6px;color:var(--muted)}
+input[type=text],textarea{width:100%;font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:10px;padding:12px;background:var(--card);color:var(--ink);transition:.15s}
+input[type=text]:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:transparent}
+textarea{resize:vertical;min-height:110px;font-size:14px;line-height:1.5}
+input[type=range]{width:100%;accent-color:var(--blue);height:28px}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}
+
+/* BOUTONS */
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;font-weight:800;border:0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:.15s;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.2}
+button:active:not(:disabled){transform:scale(.97)}
+button:focus-visible,.drop:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.primary{background:var(--blue);color:#fff;flex:1 1 200px;font-size:15px}
+.primary:hover:not(:disabled){background:var(--navy)}
+.ghost{background:var(--sky);color:var(--blue);flex:1 1 140px;font-size:14px}
+.ghost:hover:not(:disabled){background:#d3e5fa}
+@media(prefers-color-scheme: dark){.ghost{color:var(--gold)}}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+
+/* RÉSEAUX */
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.btn-social{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 10px;border-radius:10px;font-size:13.5px;color:#fff;text-decoration:none;font-weight:700;min-height:46px;cursor:pointer;border:0}
+.btn-social svg{width:18px;height:18px;flex-shrink:0}
 .btn-wa{background:var(--wa)}
 .btn-fb{background:var(--fb)}
 .btn-x{background:var(--x)}
 .btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+@media(hover:hover){.btn-social:hover{filter:brightness(1.08)}}
 
-.privacy{font-size:13px;color:var(--muted);margin-top:10px}
+.privacy{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:12px;padding:10px 12px;background:var(--sky);border-radius:10px;line-height:1.4}
+.privacy .material-symbols-outlined{font-size:18px;color:var(--blue)}
+@media(prefers-color-scheme: dark){
+  .privacy{background:#16233c}
+  .privacy .material-symbols-outlined{color:var(--gold)}
+}
 .privacy b{color:var(--ink)}
-footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
-.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+
+footer{padding:20px 0 calc(96px + var(--safe-b));text-align:center;color:var(--muted);font-size:12px;line-height:1.4}
+@media(min-width:801px){footer{padding-bottom:32px}}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99;max-width:calc(100% - 32px);text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* BARRE D'ACTION MOBILE */
+.mobile-actions{display:none}
+@media(max-width:800px){
+  .mobile-actions{
+    display:flex;gap:8px;
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    padding:10px 12px calc(10px + var(--safe-b));
+    background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-top:1px solid var(--line);
+  }
+  @media(prefers-color-scheme: dark){
+    .mobile-actions{background:rgba(18,28,48,.92)}
+  }
+  .mobile-actions .primary{flex:1}
+  .mobile-actions .ghost{flex:0 0 auto;min-width:52px;padding:0 16px}
+}
+@media(min-width:801px){
+  .desktop-actions{display:flex}
+}
+@media(max-width:800px){
+  .desktop-actions{display:none}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <span class="eyebrow">Samedi 14 novembre 2026 · Journée Mondiale du Diabète</span>
+    <span class="eyebrow">14 nov. 2026 · Journée Mondiale du Diabète</span>
     <h1>Je bouge contre le diabète</h1>
-    <p>Les Lions et Leos de la Zone 143 t'invitent à afficher ton engagement. Ajoute ta photo, télécharge ton cadre et partage-le en photo de profil ou en statut.</p>
+    <p>Affiche ton engagement. Ajoute ta photo, télécharge ton cadre et partage-le en photo de profil.</p>
   </div>
 </header>
 
@@ -84,51 +191,72 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
       <p class="hint" id="hint">Ajoute une photo pour commencer.</p>
     </section>
 
-    <section class="card" aria-label="Réglages">
-      <div class="block">
-        <p class="step">1 · Ta photo</p>
-        <label class="drop" id="drop" tabindex="0" for="file">
-          <strong id="dropTitle">Choisir une photo</strong>
-          <small>ou glisse-la ici (JPG, PNG, HEIC selon ton téléphone)</small>
-        </label>
-        <input type="file" id="file" accept="image/*">
-      </div>
-
-      <div class="block">
-        <p class="step">2 · Ton message</p>
-        <div class="chips" id="variants"></div>
-      </div>
-
-      <div class="block">
-        <p class="step">3 · Personnalise</p>
-        <label class="f" for="name">Ton prénom (facultatif)</label>
-        <input type="text" id="name" maxlength="24" placeholder="Ex. Aïcha" autocomplete="given-name">
-        <label class="f" for="zoom" style="margin-top:14px">Zoom</label>
-        <input type="range" id="zoom" min="1" max="3" step="0.01" value="1" disabled>
-        <p class="hint" style="text-align:left;margin-top:6px">Glisse la photo dans l'aperçu pour la recadrer.</p>
-      </div>
-
-      <div class="block">
-        <p class="step">4 · Télécharge et partage</p>
-        <div class="row">
-          <button class="primary" id="dl" disabled>Télécharger mon cadre</button>
-          <button class="ghost" id="share" disabled hidden>Partager ma photo</button>
+    <section aria-label="Réglages">
+      <div class="card">
+        <div class="block">
+          <p class="step">1 · Ta photo</p>
+          <label class="drop" id="drop" tabindex="0" for="file">
+            <strong id="dropTitle"><span class="material-symbols-outlined">add_a_photo</span> Choisir une photo</strong>
+            <small>ou glisse-la ici · JPG, PNG, HEIC</small>
+          </label>
+          <input type="file" id="file" accept="image/*">
         </div>
 
-        <div class="social-grid">
-          <button class="btn-social btn-wa" id="shareWa" type="button">WhatsApp</button>
-          <button class="btn-social btn-fb" id="shareFb" type="button">Facebook</button>
-          <button class="btn-social btn-x" id="shareX" type="button">X / Twitter</button>
-          <button class="btn-social btn-insta" id="shareInsta" type="button">Instagram</button>
+        <div class="block">
+          <p class="step">2 · Ton message</p>
+          <div class="chips" id="variants"></div>
         </div>
 
-        <p class="privacy">🔒 <b>Ta photo reste sur ton appareil.</b> Rien n'est envoyé sur internet : tout se passe dans ton navigateur.</p>
+        <div class="block">
+          <p class="step">3 · Personnalise</p>
+          <label class="f" for="name">Ton prénom (facultatif)</label>
+          <input type="text" id="name" maxlength="24" placeholder="Ex. Aïcha" autocomplete="given-name">
+          
+          <label class="f" for="zoom" style="margin-top:14px">Zoom</label>
+          <input type="range" id="zoom" min="1" max="3" step="0.01" value="1" disabled>
+          <div class="range-labels"><span>1×</span><span>3×</span></div>
+          <p class="hint" style="text-align:left;margin-top:4px">Glisse la photo dans l'aperçu pour la recadrer.</p>
+        </div>
+
+        <div class="block">
+          <p class="step">4 · Télécharge et partage</p>
+          <div class="row desktop-actions">
+            <button class="primary" id="dl" disabled><span class="material-symbols-outlined">download</span> Télécharger mon cadre</button>
+            <button class="ghost" id="share" disabled hidden><span class="material-symbols-outlined">share</span> Partager</button>
+          </div>
+
+          <div class="social-grid">
+            <button class="btn-social btn-wa" id="shareWa" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0-1.2-.4-2.4-1.4c-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5s0-.4 0-.6c-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.3 1.4 3.5 2.4 3.7 5.8 5.2c.8.4 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.8L2 22l5.3-1.4c1.4.7 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.8-1.3-1.3-2.8-1.3-4.4C3.6 7.4 7.4 3.6 12 3.6s8.4 3.8 8.4 8.4-3.8 8.2-8.4 8.2z"/></svg>
+              WhatsApp
+            </button>
+            <button class="btn-social btn-fb" id="shareFb" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg>
+              Facebook
+            </button>
+            <button class="btn-social btn-x" id="shareX" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2h3.7l-8.1 9.3L24 22h-7.5l-5.9-7.7L3.9 22H.2l8.6-9.9L0 2h7.7l5.3 7 5.9-7zm-1.3 18h2L6.5 3.9h-2.2L17.6 20z"/></svg>
+              X
+            </button>
+            <button class="btn-social btn-insta" id="shareInsta" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.3 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .3-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.3-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.3 2.2-.4 1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.2 4.9.4 4.1.7c-.8.3-1.5.8-2.2 1.4-.7.7-1.1 1.4-1.4 2.2C.2 4.9 0 5.8 0 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.8 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.8 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3-.3-.8-.8-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8c-3.4 0-6.2 2.8-6.2 6.2s2.8 6.2 6.2 6.2 6.2-2.8 6.2-6.2-2.8-6.2-6.2-6.2zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm7.9-10.5c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4.6-1.4 1.4-1.4 1.4.6 1.4 1.4z"/></svg>
+              Instagram
+            </button>
+          </div>
+
+          <div class="privacy">
+            <span class="material-symbols-outlined">lock</span>
+            <span><b>Ta photo reste sur ton appareil.</b> Rien n'est envoyé sur internet : tout se passe dans ton navigateur.</span>
+          </div>
+        </div>
       </div>
 
-      <div class="block">
+      <div class="card" style="margin-top:12px">
         <p class="step">Texte à publier avec</p>
         <textarea id="caption" rows="5" readonly></textarea>
-        <div class="row" style="margin-top:8px"><button class="ghost" id="copy">Copier le texte</button></div>
+        <div class="row" style="margin-top:8px">
+          <button class="ghost" id="copy" style="flex:1"><span class="material-symbols-outlined">content_copy</span> Copier le texte</button>
+        </div>
       </div>
     </section>
   </div>
@@ -137,30 +265,38 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
 <footer>
   <div class="wrap">Campagne digitale et matinée sportive · Zone 143 · Région 14 · District 403-A4 · Abomey-Calavi</div>
 </footer>
-<div class="toast" id="toast" role="status"></div>
+
+<!-- BARRE MOBILE -->
+<div class="mobile-actions">
+  <button class="primary" id="dlMobile" disabled><span class="material-symbols-outlined">download</span> Télécharger</button>
+  <button class="ghost" id="shareMobile" disabled hidden aria-label="Partager"><span class="material-symbols-outlined">share</span></button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
   'use strict';
   var S = 1080, C = S/2;
-  var R_PHOTO = 452;
-  var R_OUT = 532;
+  var R_PHOTO = 452, R_OUT = 532;
   var R_TXT = (R_PHOTO+R_OUT)/2;
   var FONT = '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  var FILENAME = 'je-bouge-contre-le-diabete-zone143.png';
 
   var VARIANTS = [
     {id:'soutien', label:'Je soutiens la lutte contre le diabète', top:'JE SOUTIENS LA LUTTE CONTRE LE DIABÈTE', bottom:'ZONE 143 · LIONS & LEO · 14 NOV. 2026',
-     caption:'Je soutiens la lutte contre le diabète 💙\nAvec les Lions et Leos de la Zone 143, je me mobilise pour la Journée Mondiale du Diabète, le 14 novembre 2026.\nAdopte le cadre, partage et passe le mot !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
+     caption:'Je soutiens la lutte contre le diabète.\nAvec les Lions et Leos de la Zone 143, je me mobilise pour la Journée Mondiale du Diabète, le 14 novembre 2026.\nAdopte le cadre, partage et passe le mot !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
     {id:'bouge', label:'Je bouge contre le diabète', top:'JE BOUGE CONTRE LE DIABÈTE', bottom:'MATINÉE SPORTIVE · 14 NOV. 2026',
-     caption:'Je bouge contre le diabète 🏃‍♂️💙\nRendez-vous samedi 14 novembre 2026 pour une matinée sportive et une causerie-santé avec les Lions et Leos de la Zone 143.\nBouger, c\'est prévenir !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
+     caption:'Je bouge contre le diabète !\nRendez-vous samedi 14 novembre 2026 pour une matinée sportive et une causerie-santé avec les Lions et Leos de la Zone 143.\nBouger, c\'est prévenir !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'},
     {id:'la', label:'Je serai là le 14 novembre', top:'JE SERAI LÀ LE 14 NOVEMBRE', bottom:'SPORT & SANTÉ · ABOMEY-CALAVI',
-     caption:'Je serai là le 14 novembre 2026 ! 💙\nMatinée sport et sensibilisation contre le diabète avec les Lions et Leos de la Zone 143, à Abomey-Calavi.\nViens bouger avec nous !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'}
+     caption:'Je serai là le 14 novembre 2026 !\nMatinée sport et sensibilisation contre le diabète avec les Lions et Leos de la Zone 143, à Abomey-Calavi.\nViens bouger avec nous !\n#JeBougeContreLeDiabète #Zone143 #LionsClubs #JournéeMondialeDuDiabète'}
   ];
 
   var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
   var fileIn = document.getElementById('file'), drop = document.getElementById('drop');
   var nameIn = document.getElementById('name'), zoomIn = document.getElementById('zoom');
-  var dl = document.getElementById('dl'), shareBtn = document.getElementById('share');
+  var dl = document.getElementById('dl'), dlM = document.getElementById('dlMobile');
+  var shareBtn = document.getElementById('share'), shareM = document.getElementById('shareMobile');
   var shareWa = document.getElementById('shareWa'), shareFb = document.getElementById('shareFb');
   var shareX = document.getElementById('shareX'), shareInsta = document.getElementById('shareInsta');
   var hint = document.getElementById('hint'), caption = document.getElementById('caption');
@@ -183,7 +319,6 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
 
   /* ---------- Dessin ---------- */
   function baseScale(){ return Math.max(2*R_PHOTO/iw, 2*R_PHOTO/ih); }
-
   function clampOffset(){
     var s = baseScale()*zoom, maxX = Math.max(0,(iw*s - 2*R_PHOTO)/2), maxY = Math.max(0,(ih*s - 2*R_PHOTO)/2);
     ox = Math.min(maxX, Math.max(-maxX, ox)); oy = Math.min(maxY, Math.max(-maxY, oy));
@@ -214,7 +349,6 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
     ctx.save(); ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
     ctx.lineWidth = r*0.34; ctx.strokeStyle = '#fff'; ctx.stroke(); ctx.restore();
   }
-
   function rrect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 
   function draw(){
@@ -257,9 +391,11 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
   /* ---------- Chargement de la photo ---------- */
   function setImage(source, w, h){
     img = source; iw = w; ih = h; zoom = 1; ox = oy = 0;
-    zoomIn.value = 1; zoomIn.disabled = false; dl.disabled = false; shareBtn.disabled = false;
+    zoomIn.value = 1; zoomIn.disabled = false;
+    dl.disabled = false; dlM.disabled = false;
+    shareBtn.disabled = false; shareM.disabled = false;
     hint.textContent = 'Glisse pour recadrer, utilise le curseur pour zoomer.';
-    document.getElementById('dropTitle').textContent = 'Changer de photo';
+    document.getElementById('dropTitle').innerHTML = '<span class="material-symbols-outlined">sync</span> Changer de photo';
     draw();
   }
   function loadFile(f){
@@ -285,11 +421,12 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
   nameIn.addEventListener('input', draw);
   zoomIn.addEventListener('input', function(){ zoom = parseFloat(zoomIn.value); clampOffset(); draw(); });
 
-  /* ---------- Glisser pour recadrer ---------- */
+  /* ---------- Glisser / pincer ---------- */
   var pts = {}, last = null, pinch0 = null;
   function cvScale(){ return S / cv.getBoundingClientRect().width; }
   cv.addEventListener('pointerdown', function(e){
-    if (!img) return; cv.setPointerCapture(e.pointerId); pts[e.pointerId] = {x:e.clientX,y:e.clientY};
+    if (!img) return;
+    cv.setPointerCapture(e.pointerId); pts[e.pointerId] = {x:e.clientX,y:e.clientY};
     cv.classList.add('drag'); last = {x:e.clientX,y:e.clientY};
     if (Object.keys(pts).length === 2) pinch0 = {d:dist(), z:zoom};
   });
@@ -313,8 +450,6 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
 
   /* ---------- Export & Partage ---------- */
   function toBlob(){ return new Promise(function(res){ cv.toBlob(res, 'image/png'); }); }
-  var FILENAME = 'je-bouge-contre-le-diabete-zone143.png';
-
   function downloadImage(){
     return toBlob().then(function(b){
       var url = URL.createObjectURL(b), a = document.createElement('a');
@@ -324,11 +459,11 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
       return b;
     });
   }
-
   dl.addEventListener('click', downloadImage);
+  dlM.addEventListener('click', downloadImage);
 
-  if (navigator.share && navigator.canShare){ shareBtn.hidden = false; }
-  shareBtn.addEventListener('click', function(){
+  if (navigator.share && navigator.canShare){ shareBtn.hidden = false; shareM.hidden = false; }
+  function doShare(){
     toBlob().then(function(b){
       var f = new File([b], FILENAME, {type:'image/png'});
       if (navigator.canShare({files:[f]})){
@@ -337,30 +472,25 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
         toast('Utilise Télécharger puis partage l\'image.');
       }
     });
-  });
+  }
+  shareBtn.addEventListener('click', doShare);
+  shareM.addEventListener('click', doShare);
 
-  // Boutons sociaux
   function getShareUrl(){ return window.location.href; }
 
   shareWa.addEventListener('click', function(){
     var txt = encodeURIComponent(variant.caption + '\n\nCrée ton cadre ici : ' + getShareUrl());
     window.open('https://api.whatsapp.com/send?text=' + txt, '_blank');
   });
-
   shareFb.addEventListener('click', function(){
-    var url = encodeURIComponent(getShareUrl());
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=500');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(getShareUrl()), '_blank', 'width=600,height=500');
   });
-
   shareX.addEventListener('click', function(){
-    var txt = encodeURIComponent(variant.caption);
-    var url = encodeURIComponent(getShareUrl());
-    window.open('https://twitter.com/intent/tweet?text=' + txt + '&url=' + url, '_blank', 'width=600,height=500');
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(variant.caption) + '&url=' + encodeURIComponent(getShareUrl()), '_blank', 'width=600,height=500');
   });
-
   shareInsta.addEventListener('click', function(){
     downloadImage().then(function(){
-      toast('Photo téléchargée ! Ouvre Instagram pour la publier en story/profil.');
+      setTimeout(function(){ toast('Ouvre Instagram pour publier ta photo !'); }, 800);
     });
   });
 
@@ -370,7 +500,7 @@ footer{padding:20px 0 36px;text-align:center;color:var(--muted);font-size:13px}
     function fallback(){ caption.removeAttribute('readonly'); caption.select(); try{ document.execCommand('copy'); ok(); }catch(e){ toast('Copie impossible, sélectionne le texte à la main.'); } caption.setAttribute('readonly',''); }
   });
 
-  var tt; function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 2800); }
+  var tt; function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 3000); }
 
   draw();
 })();

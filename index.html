@@ -65,8 +65,9 @@ footer{background:var(--navy-d);color:#b9c4de;padding:26px 0;text-align:center;f
   header p{font-size:12.5px;line-height:1.4}
   main{padding:14px 14px calc(36px + var(--safe-b))}
   .grid{grid-template-columns:1fr;gap:12px}
-  .stage{position:static}
-  .stage canvas{max-width:260px}
+  .stage{position:sticky;top:0;z-index:20;padding:8px;border-radius:0 0 12px 12px}
+  .stage canvas{max-width:170px}
+  .stage .hint{display:none}
   .card{padding:14px}
 }
 </style>
